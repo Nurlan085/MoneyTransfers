@@ -7,4 +7,6 @@ public interface MoneyTransfersService {
 
     RespMoneyTransfers cardToCard(ReqMoneyTransfers reqMoneyTransfers);
 
+    RespMoneyTransfers cardToNoAccount(ReqMoneyTransfers reqMoneyTransfers);
+
 }

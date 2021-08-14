@@ -107,6 +107,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerDao.createCustomer(customer);
             response.setStatusCode(RespStatus.getSuccessMessage().getStatusCode());
             response.setStatusMessage(RespStatus.getSuccessMessage().getStatusMessage());
+            LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
 
         } catch (Exception e) {
             e.printStackTrace();

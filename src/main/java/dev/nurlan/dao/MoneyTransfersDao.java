@@ -4,5 +4,5 @@ import dev.nurlan.model.MoneyTransfers;
 
 public interface MoneyTransfersDao {
 
-    void createCardToCard(MoneyTransfers moneyTransfers) throws Exception;
+    void createMoneyTransfers(MoneyTransfers moneyTransfers) throws Exception;
 }

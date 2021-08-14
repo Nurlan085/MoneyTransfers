@@ -16,12 +16,17 @@ public class MoneyTransfersController {
 
 
     @Autowired
-    private MoneyTransfersService MoneyTransfersService;
+    private MoneyTransfersService moneyTransfersService;
 
 
     @PostMapping(value = "/cardToCard")
     public RespMoneyTransfers cardToCard(@RequestBody ReqMoneyTransfers reqMoneyTransfers) {
-        return MoneyTransfersService.cardToCard(reqMoneyTransfers);
+        return moneyTransfersService.cardToCard(reqMoneyTransfers);
+    }
+
+    @PostMapping(value = "cardToNoAccount")
+    public RespMoneyTransfers cardToNoAccount(@RequestBody ReqMoneyTransfers reqMoneyTransfers) {
+        return moneyTransfersService.cardToNoAccount(reqMoneyTransfers);
     }
 
 }

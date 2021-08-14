@@ -9,7 +9,7 @@ public enum EnumMoneyTransfersState {
 
     SUCCESS(1),
 
-    RETRY(2),
+    WAITING(2),
 
     ACCEPT(3),
 

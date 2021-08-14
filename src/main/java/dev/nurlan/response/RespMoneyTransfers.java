@@ -16,11 +16,12 @@ public class RespMoneyTransfers {
     private Integer curCode;
     private String transferCode;
     private Integer mtStateId;
+    private Integer transferTypeId;
+
     private String crName;
     private String crSurname;
     private String crFname;
     private String crMobile;
-    private Integer transferTypeId;
     private Date acceptDate;
     private Date reverseDate;
     private RespStatus status;

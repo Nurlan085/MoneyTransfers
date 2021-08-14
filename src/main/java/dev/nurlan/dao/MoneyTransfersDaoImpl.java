@@ -18,7 +18,7 @@ public class MoneyTransfersDaoImpl implements MoneyTransfersDao {
 
 
     @Override
-    public void createCardToCard(MoneyTransfers moneyTransfers) {
+    public void createMoneyTransfers(MoneyTransfers moneyTransfers) {
         SimpleJdbcCall caller = new SimpleJdbcCall(dataSource);
         caller.withSchemaName("DEV_TEST")
                 .withCatalogName("PACK_MONEY_TRANSFERS")
@@ -37,7 +37,6 @@ public class MoneyTransfersDaoImpl implements MoneyTransfersDao {
                 .addValue("P_CR_FNAME", moneyTransfers.getCrFname())
                 .addValue("P_CR_MOBILE", moneyTransfers.getCrMobile())
                 .addValue("P_TRANSFER_TYPE_ID", moneyTransfers.getTransferTypeId());
-        //Hello
         caller.execute(param);
     }
 }
