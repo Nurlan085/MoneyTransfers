@@ -84,6 +84,5 @@ public class CardDaoImpl implements CardDao {
                 .addValue("P_CARD_ID", card.getId())
                 .addValue("P_CARD_BALANCE", card.getCardBalance());
         caller.execute(param);
-
     }
 }

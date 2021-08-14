@@ -3,7 +3,7 @@ package dev.nurlan.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum EnumTransferTypeId {
+public enum EnumTransferType {
 
     CARD_TO_CARD(1),
 
@@ -12,15 +12,15 @@ public enum EnumTransferTypeId {
 
     private int value;
 
-    private static final Map<Integer, EnumTransferTypeId> VALUES = new HashMap<>();
+    private static final Map<Integer, EnumTransferType> VALUES = new HashMap<>();
 
     static {
-        for (EnumTransferTypeId type : EnumTransferTypeId.values()) {
+        for (EnumTransferType type : EnumTransferType.values()) {
             VALUES.put(type.value, type);
         }
     }
 
-    EnumTransferTypeId(int enumValue) {
+    EnumTransferType(int enumValue) {
         this.value = enumValue;
     }
 
@@ -28,7 +28,7 @@ public enum EnumTransferTypeId {
         return value;
     }
 
-    public static EnumTransferTypeId getEnum(Integer value) {
+    public static EnumTransferType getEnum(Integer value) {
         if (value == null)
             return null;
 

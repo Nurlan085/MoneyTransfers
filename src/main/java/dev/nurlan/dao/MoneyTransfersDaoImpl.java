@@ -75,4 +75,16 @@ public class MoneyTransfersDaoImpl implements MoneyTransfersDao {
                 .addValue("P_MT_STATE_ID", moneyTransfers.getMtStateId());
         caller.execute(param);
     }
+
+    @Override
+    public void updateReverseMoneyTransfers(MoneyTransfers moneyTransfers) throws Exception {
+        SimpleJdbcCall caller = new SimpleJdbcCall(dataSource);
+        caller.withSchemaName("DEV_TEST")
+                .withCatalogName("PACK_MONEY_TRANSFERS")
+                .withProcedureName("UPDATE_REVERSE_MONEY_TRANSFERS");
+        MapSqlParameterSource param = new MapSqlParameterSource()
+                .addValue("P_MT_ID", moneyTransfers.getId())
+                .addValue("P_MT_STATE_ID", moneyTransfers.getMtStateId());
+        caller.execute(param);
+    }
 }

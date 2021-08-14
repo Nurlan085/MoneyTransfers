@@ -12,4 +12,6 @@ public interface MoneyTransfersService {
 
     RespStatus acceptCardToNoAccount(ReqMoneyTransfers reqMoneyTransfers);
 
+    RespStatus reverseCardToNoAccount(ReqMoneyTransfers reqMoneyTransfers);
+
 }

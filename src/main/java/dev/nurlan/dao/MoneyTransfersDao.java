@@ -9,4 +9,6 @@ public interface MoneyTransfersDao {
     MoneyTransfers getMoneyTransfersById(Long mtId) throws Exception;
 
     void updateAcceptMoneyTransfers(MoneyTransfers moneyTransfers) throws Exception;
+
+    void updateReverseMoneyTransfers(MoneyTransfers moneyTransfers) throws Exception;
 }

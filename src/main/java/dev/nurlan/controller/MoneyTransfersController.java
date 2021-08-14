@@ -35,4 +35,9 @@ public class MoneyTransfersController {
         return moneyTransfersService.acceptCardToNoAccount(reqMoneyTransfers);
     }
 
+    @PostMapping(value = "reverseCardToNoAccount")
+    public RespStatus reverseCardToNoAccount(@RequestBody ReqMoneyTransfers reqMoneyTransfers) {
+        return moneyTransfersService.reverseCardToNoAccount(reqMoneyTransfers);
+    }
+
 }
