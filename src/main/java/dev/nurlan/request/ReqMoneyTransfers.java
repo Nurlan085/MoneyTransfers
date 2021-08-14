@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class ReqMoneyTransfers {
 
+    private Long mtId;
     private Long dtCustId;
     private Long crCustId;
     private Long dtCardId;

@@ -24,15 +24,11 @@ public class ExceptionConstants {
 
     public static final Integer CARDS_IS_THE_SAME = 109;
 
+    public static final Integer TRANSFER_NOT_FOUND = 110;
 
+    public static final Integer TRANSFER_ACCEPTED = 111;
 
-
-
-
-
-
-
-
+    public static final Integer TRANSFER_REVERSED = 112;
 
 
 }

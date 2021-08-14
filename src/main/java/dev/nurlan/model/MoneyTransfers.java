@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class MoneyTransfers {
+public class MoneyTransfers extends AbstractModel {
 
     private Long dtCustId;
     private Long crCustId;

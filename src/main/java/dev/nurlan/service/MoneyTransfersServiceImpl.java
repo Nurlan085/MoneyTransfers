@@ -4,6 +4,7 @@ import dev.nurlan.dao.CardDao;
 import dev.nurlan.dao.CustomerDao;
 import dev.nurlan.dao.MoneyTransfersDao;
 import dev.nurlan.enums.EnumMoneyTransfersState;
+import dev.nurlan.enums.EnumTransferTypeId;
 import dev.nurlan.exception.ExceptionConstants;
 import dev.nurlan.model.Card;
 import dev.nurlan.model.Customer;
@@ -273,9 +274,75 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
             LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
 
         } catch (Exception e) {
-            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             e.printStackTrace();
             response.setStatus(new RespStatus(ExceptionConstants.INTERNAL_EXCEPTION, "Internal exception"));
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
+            return response;
+        }
+        return response;
+    }
+
+    @Override
+    public RespStatus acceptCardToNoAccount(ReqMoneyTransfers reqMoneyTransfers) {
+
+        RespStatus response = new RespStatus();
+
+        try {
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called acceptCardToNoAccount");
+
+            Long mtId = reqMoneyTransfers.getMtId();
+            Long crCustId = reqMoneyTransfers.getCrCustId();
+
+            if (crCustId == null || mtId == null) {
+                response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
+                response.setStatusMessage("Invalid request data");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
+                return response;
+            }
+
+            Customer crCustomer = customerDao.getCustomerById(crCustId);
+            if (crCustomer == null) {
+                response.setStatusCode(ExceptionConstants.CUSTOMER_NOT_EXIST_AT_BANK);
+                response.setStatusMessage("Customer not exist at bank");
+                LOGGER.warn("Ip: " + Utility.getClientIp(request) + ", Customer not exist at bank");
+                return response;
+            }
+
+            MoneyTransfers moneyTransfers = moneyTransfersDao.getMoneyTransfersById(mtId);
+            if (moneyTransfers == null || moneyTransfers.getTransferTypeId().equals(EnumTransferTypeId.CARD_TO_CARD.getValue())) {
+                response.setStatusCode(ExceptionConstants.TRANSFER_NOT_FOUND);
+                response.setStatusMessage("Transfer not found");
+                LOGGER.warn("Ip: " + Utility.getClientIp(request) + ", Transfer not found");
+                return response;
+            }
+
+            if (moneyTransfers.getMtStateId().equals(EnumMoneyTransfersState.ACCEPT.getValue())) {
+                response.setStatusCode(ExceptionConstants.TRANSFER_ACCEPTED);
+                response.setStatusMessage("Transfer accepted");
+                LOGGER.warn("Ip: " + Utility.getClientIp(request) + ", Transfer accepted");
+                return response;
+            }
+
+            if (moneyTransfers.getMtStateId().equals(EnumMoneyTransfersState.REVERSE.getValue())) {
+                response.setStatusCode(ExceptionConstants.TRANSFER_REVERSED);
+                response.setStatusMessage("Transfer reversed");
+                LOGGER.warn("Ip: " + Utility.getClientIp(request) + ", Transfer reversed");
+                return response;
+            }
+
+            moneyTransfers.setId(mtId);
+            moneyTransfers.setCrCustId(crCustId);
+            moneyTransfers.setMtStateId(EnumMoneyTransfersState.ACCEPT.getValue());
+            response.setStatusCode(RespStatus.getSuccessMessage().getStatusCode());
+            moneyTransfersDao.updateAcceptMoneyTransfers(moneyTransfers);
+            response.setStatusMessage(RespStatus.getSuccessMessage().getStatusMessage());
+            LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatusCode(ExceptionConstants.INTERNAL_EXCEPTION);
+            response.setStatusMessage("Internal exception");
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
         return response;
