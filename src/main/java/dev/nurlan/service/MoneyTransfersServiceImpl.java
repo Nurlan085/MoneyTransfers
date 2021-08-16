@@ -48,6 +48,7 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
         RespMoneyTransfers response = new RespMoneyTransfers();
 
         try {
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called cardToCard, reqMoneyTransfers = " + reqMoneyTransfers);
             Long dtCustId = reqMoneyTransfers.getDtCustId();
             Long crCustId = reqMoneyTransfers.getCrCustId();
             Long dtCardId = reqMoneyTransfers.getDtCardId();
@@ -168,6 +169,7 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(new RespStatus(ExceptionConstants.INTERNAL_EXCEPTION, "Internal exception"));
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
         return response;
@@ -178,8 +180,7 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
         RespMoneyTransfers response = new RespMoneyTransfers();
 
         try {
-            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called cardToNoAccount");
-
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called cardToNoAccount, reqMoneyTransfers = " + reqMoneyTransfers);
             Long dtCustId = reqMoneyTransfers.getDtCustId();
             Long dtCardId = reqMoneyTransfers.getDtCardId();
             Float dtAmount = reqMoneyTransfers.getAmount();
@@ -288,7 +289,7 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
         RespStatus response = new RespStatus();
 
         try {
-            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called acceptCardToNoAccount");
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called acceptCardToNoAccount, reqMoneyTransfers = " + reqMoneyTransfers);
 
             Long mtId = reqMoneyTransfers.getMtId();
             Long crCustId = reqMoneyTransfers.getCrCustId();
@@ -354,7 +355,7 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
         RespStatus response = new RespStatus();
 
         try {
-            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called reverseCardToNoAccount");
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called reverseCardToNoAccount, reqMoneyTransfers = " + reqMoneyTransfers);
 
             Long mtId = reqMoneyTransfers.getMtId();
 

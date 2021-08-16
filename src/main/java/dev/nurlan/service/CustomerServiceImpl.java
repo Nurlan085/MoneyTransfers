@@ -79,18 +79,21 @@ public class CustomerServiceImpl implements CustomerService {
         RespStatus response = new RespStatus();
 
         try {
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called createCustomer, reqCustomer = " + reqCustomer);
             if ((reqCustomer.getName() == null || reqCustomer.getName().isEmpty())
                     || (reqCustomer.getSurname() == null || reqCustomer.getSurname().isEmpty())
                     || (reqCustomer.getFname() == null || reqCustomer.getFname().isEmpty())
                     || reqCustomer.getGenderId() == null || reqCustomer.getCustTypeId() == null) {
                 response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                 response.setStatusMessage("Invalid request data");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
             }
             if (reqCustomer.getCustTypeId().equals(EnumCustomerType.NOMINAL_CUSTOMER.getValue())) {
                 if (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty()) {
                     response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                     response.setStatusMessage("Invalid request data");
+                    LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                     return response;
                 }
             }
@@ -113,6 +116,7 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
             response.setStatusCode(ExceptionConstants.INTERNAL_EXCEPTION);
             response.setStatusMessage("Internal exception");
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
         return response;
@@ -124,6 +128,7 @@ public class CustomerServiceImpl implements CustomerService {
         RespStatus response = new RespStatus();
 
         try {
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called updateCustomer, reqCustomer = " + reqCustomer);
             if (reqCustomer.getId() == null || (reqCustomer.getName() == null || reqCustomer.getName().isEmpty())
                     || (reqCustomer.getSurname() == null || reqCustomer.getSurname().isEmpty())
                     || (reqCustomer.getFname() == null || reqCustomer.getFname().isEmpty())
@@ -131,12 +136,15 @@ public class CustomerServiceImpl implements CustomerService {
                     || reqCustomer.getDocumentTypeId() == null) {
                 response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                 response.setStatusMessage("Invalid request data");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
             }
+
             if (reqCustomer.getCustTypeId().equals(EnumCustomerType.NOMINAL_CUSTOMER.getValue())) {
                 if (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty()) {
                     response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                     response.setStatusMessage("Invalid request data");
+                    LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                     return response;
                 }
             }
@@ -146,6 +154,7 @@ public class CustomerServiceImpl implements CustomerService {
             if (customer == null) {
                 response.setStatusCode(ExceptionConstants.CUSTOMER_NOT_EXIST_AT_BANK);
                 response.setStatusMessage("Customer not exist at bank");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Customer not exist at bank");
                 return response;
             }
             customer.setId(reqCustomer.getId());
@@ -161,10 +170,13 @@ public class CustomerServiceImpl implements CustomerService {
             customerDao.updateCustomer(customer);
             response.setStatusCode(RespStatus.getSuccessMessage().getStatusCode());
             response.setStatusMessage(RespStatus.getSuccessMessage().getStatusMessage());
+            LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
+
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatusCode(ExceptionConstants.INTERNAL_EXCEPTION);
             response.setStatusMessage("Internal exception");
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
         return response;
@@ -179,12 +191,14 @@ public class CustomerServiceImpl implements CustomerService {
             LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called getCustomerById, custId = " + custId);
             if (custId == null) {
                 response.setStatus(new RespStatus(ExceptionConstants.INVALID_REQUEST_DATA, "Invalid request data"));
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
             }
 
             Customer customer = customerDao.getCustomerById(custId);
             if (customer == null) {
                 response.setStatus(new RespStatus(ExceptionConstants.CUSTOMER_NOT_EXIST_AT_BANK, "Customer not exist at bank"));
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Customer not exist at bank");
                 return response;
             }
 
@@ -198,10 +212,11 @@ public class CustomerServiceImpl implements CustomerService {
             response.setCustTypeId(customer.getCustTypeId());
             response.setDocumentTypeId(customer.getDocumentTypeId());
             response.setStatus(RespStatus.getSuccessMessage());
-            LOGGER.warn("Ip: " + Utility.getClientIp(request) + ", success");
+            LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(new RespStatus(ExceptionConstants.INTERNAL_EXCEPTION, "Internal exception"));
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
         return response;
@@ -213,10 +228,11 @@ public class CustomerServiceImpl implements CustomerService {
         RespStatus response = new RespStatus();
 
         try {
-
+            LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called deleteCustomer, custId = " + custId);
             if (custId == null) {
                 response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                 response.setStatusMessage("Invalid request data");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
             }
 
@@ -224,15 +240,18 @@ public class CustomerServiceImpl implements CustomerService {
             if (customer == null) {
                 response.setStatusCode(ExceptionConstants.CUSTOMER_NOT_EXIST_AT_BANK);
                 response.setStatusMessage("Card not found");
+                LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Customer not exist at bank");
                 return response;
             }
             customerDao.deleteCustomer(custId);
             response.setStatusCode(RespStatus.getSuccessMessage().getStatusCode());
             response.setStatusMessage(RespStatus.getSuccessMessage().getStatusMessage());
+            LOGGER.warn("Ip: " + Utility.getClientIp(request) + "response: " + response);
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatusCode(ExceptionConstants.INTERNAL_EXCEPTION);
             response.setStatusMessage("Internal exception");
+            LOGGER.error("Ip: " + Utility.getClientIp(request) + ", error: " + e);
             return response;
         }
 
