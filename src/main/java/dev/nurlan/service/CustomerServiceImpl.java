@@ -83,25 +83,20 @@ public class CustomerServiceImpl implements CustomerService {
             if ((reqCustomer.getName() == null || reqCustomer.getName().isEmpty())
                     || (reqCustomer.getSurname() == null || reqCustomer.getSurname().isEmpty())
                     || (reqCustomer.getFname() == null || reqCustomer.getFname().isEmpty())
-                    || reqCustomer.getGenderId() == null || reqCustomer.getCustTypeId() == null) {
+                    || (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty())
+                    || (reqCustomer.getAddress() == null || reqCustomer.getAddress().isEmpty())
+                    || reqCustomer.getGenderId() == null || reqCustomer.getCustTypeId() == null
+                    || reqCustomer.getDocumentTypeId() == null) {
                 response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                 response.setStatusMessage("Invalid request data");
                 LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
             }
-            if (reqCustomer.getCustTypeId().equals(EnumCustomerType.NOMINAL_CUSTOMER.getValue())) {
-                if (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty()) {
-                    response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
-                    response.setStatusMessage("Invalid request data");
-                    LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
-                    return response;
-                }
-            }
+
             Customer customer = new Customer();
             customer.setName(reqCustomer.getName());
             customer.setSurname(reqCustomer.getSurname());
             customer.setFname(reqCustomer.getFname());
-            customer.setMobile(reqCustomer.getMobile());
             customer.setMobile(reqCustomer.getMobile());
             customer.setAddress(reqCustomer.getAddress());
             customer.setGenderId(reqCustomer.getGenderId());
@@ -129,24 +124,18 @@ public class CustomerServiceImpl implements CustomerService {
 
         try {
             LOGGER.info("Ip: " + Utility.getClientIp(request) + ", called updateCustomer, reqCustomer = " + reqCustomer);
-            if (reqCustomer.getId() == null || (reqCustomer.getName() == null || reqCustomer.getName().isEmpty())
+            if (reqCustomer.getId() == null
+                    || (reqCustomer.getName() == null || reqCustomer.getName().isEmpty())
                     || (reqCustomer.getSurname() == null || reqCustomer.getSurname().isEmpty())
                     || (reqCustomer.getFname() == null || reqCustomer.getFname().isEmpty())
+                    || (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty())
+                    || (reqCustomer.getAddress() == null || reqCustomer.getAddress().isEmpty())
                     || reqCustomer.getGenderId() == null || reqCustomer.getCustTypeId() == null
                     || reqCustomer.getDocumentTypeId() == null) {
                 response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
                 response.setStatusMessage("Invalid request data");
                 LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
                 return response;
-            }
-
-            if (reqCustomer.getCustTypeId().equals(EnumCustomerType.NOMINAL_CUSTOMER.getValue())) {
-                if (reqCustomer.getMobile() == null || reqCustomer.getMobile().isEmpty()) {
-                    response.setStatusCode(ExceptionConstants.INVALID_REQUEST_DATA);
-                    response.setStatusMessage("Invalid request data");
-                    LOGGER.info("Ip: " + Utility.getClientIp(request) + ", Invalid request data");
-                    return response;
-                }
             }
 
             Customer customer = customerDao.getCustomerById(reqCustomer.getId());
@@ -161,7 +150,6 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setName(reqCustomer.getName());
             customer.setSurname(reqCustomer.getSurname());
             customer.setFname(reqCustomer.getFname());
-            customer.setMobile(reqCustomer.getMobile());
             customer.setMobile(reqCustomer.getMobile());
             customer.setAddress(reqCustomer.getAddress());
             customer.setGenderId(reqCustomer.getGenderId());
