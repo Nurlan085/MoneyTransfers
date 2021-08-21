@@ -22,5 +22,6 @@ public class MoneyTransfers extends AbstractModel {
     private Integer transferTypeId;
     private Date acceptDate;
     private Date reverseDate;
+    private Date dataDate;
 
 }

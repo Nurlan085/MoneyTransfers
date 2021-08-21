@@ -1,6 +1,8 @@
 package dev.nurlan.util;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Utility {
 
@@ -15,4 +17,12 @@ public class Utility {
             return null;
         }
     }
+
+    public static long getCountBetweenDays(Date fromDate, Date toDate) {
+
+        long commonDayCount = TimeUnit.DAYS.convert(toDate.getTime() - fromDate.getTime(), TimeUnit.MILLISECONDS);
+
+        return commonDayCount;
+    }
+
 }

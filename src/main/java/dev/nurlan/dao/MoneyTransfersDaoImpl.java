@@ -87,4 +87,15 @@ public class MoneyTransfersDaoImpl implements MoneyTransfersDao {
                 .addValue("P_MT_STATE_ID", moneyTransfers.getMtStateId());
         caller.execute(param);
     }
+
+    @Override
+    public List<MoneyTransfers> getMoneyTransfersList() {
+        SimpleJdbcCall caller = new SimpleJdbcCall(dataSource);
+        caller.withSchemaName("DEV_TEST")
+                .withCatalogName("PACK_MONEY_TRANSFERS")
+                .withFunctionName("GET_MONEY_TRANSFERS_LIST")
+                .declareParameters(new SqlOutParameter("RESULT", Types.REF_CURSOR, new BeanPropertyRowMapper<>(MoneyTransfers.class)));
+        Map<String, Object> result = caller.execute();
+        return (List<MoneyTransfers>) result.get("RESULT");
+    }
 }
