@@ -1,6 +1,7 @@
 package dev.nurlan.controller;
 
 
+import dev.nurlan.request.ReqCustomer;
 import dev.nurlan.request.ReqMoneyTransfers;
 import dev.nurlan.response.RespMoneyTransfers;
 import dev.nurlan.response.RespStatus;
@@ -38,6 +39,11 @@ public class MoneyTransfersController {
     @PostMapping(value = "reverseCardToNoAccount")
     public RespStatus reverseCardToNoAccount(@RequestBody ReqMoneyTransfers reqMoneyTransfers) {
         return moneyTransfersService.reverseCardToNoAccount(reqMoneyTransfers);
+    }
+
+    @PostMapping(value = "test-br-card")
+    public String testBrCard(@RequestBody ReqCustomer request) {
+        return moneyTransfersService.testBrCard(request);
     }
 
 }

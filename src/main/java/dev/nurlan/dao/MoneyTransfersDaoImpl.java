@@ -98,4 +98,18 @@ public class MoneyTransfersDaoImpl implements MoneyTransfersDao {
         Map<String, Object> result = caller.execute();
         return (List<MoneyTransfers>) result.get("RESULT");
     }
+
+    @Override
+    public String testBrCard(Long mtId, String name) {
+        SimpleJdbcCall caller = new SimpleJdbcCall(dataSource);
+        caller.withSchemaName("DEV_TEST")
+                .withCatalogName("PACK_MONEY_TRANSFERS")
+                .withProcedureName("TEST_BR_CARD")
+                .declareParameters(new SqlOutParameter("P_OUTPUT", Types.VARCHAR));
+        MapSqlParameterSource param = new MapSqlParameterSource()
+                .addValue("P_ID", mtId)
+                .addValue("P_NAME", name);
+        Map<String, Object> result = caller.execute(param);
+        return (String) result.get("P_OUTPUT");
+    }
 }

@@ -26,7 +26,7 @@ public class MoneyTransfersScheduler {
     @Autowired
     private CardDao cardDao;
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 0/10 17 * * *")
     public void checkTransfersReverse() {
 
         LOGGER.info("MoneyTransfersScheduler is start");

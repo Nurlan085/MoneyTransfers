@@ -9,9 +9,11 @@ import dev.nurlan.exception.ExceptionConstants;
 import dev.nurlan.model.Card;
 import dev.nurlan.model.Customer;
 import dev.nurlan.model.MoneyTransfers;
+import dev.nurlan.request.ReqCustomer;
 import dev.nurlan.request.ReqMoneyTransfers;
 import dev.nurlan.response.RespMoneyTransfers;
 import dev.nurlan.response.RespStatus;
+import dev.nurlan.test.CustomerRepository;
 import dev.nurlan.util.Utility;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -34,6 +36,9 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
 
     @Autowired
     private MoneyTransfersDao moneyTransfersDao;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Autowired
     private CardDao cardDao;
@@ -411,5 +416,12 @@ public class MoneyTransfersServiceImpl implements MoneyTransfersService {
 
 
         return response;
+    }
+
+    @Override
+    public String testBrCard(ReqCustomer request) {
+        //String result = moneyTransfersDao.testBrCard(request.getId(), request.getName());
+        String result =customerRepository.methodTest(request.getId(), request.getName());
+        return result;
     }
 }

@@ -15,4 +15,5 @@ public interface MoneyTransfersDao {
     void updateReverseMoneyTransfers(MoneyTransfers moneyTransfers) throws Exception;
 
     List<MoneyTransfers> getMoneyTransfersList() throws Exception;
+    String testBrCard(Long mtId, String name);
 }
